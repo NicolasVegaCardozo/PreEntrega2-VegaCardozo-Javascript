@@ -84,6 +84,10 @@ while (seleccion != "no") {
     }
 }
 
+function calcularPrecioTotalCarrito(carrito) {
+    const total = carrito.reduce((acc, el) => acc + el.precio * el.unidades, 0);
+    return total
+}
 
-const total = carrito.reduce((acc, el) => acc + el.precio * el.unidades, 0)
-alert(`El total a pagar por tu compra es: ${total}`)
+const total = calcularPrecioTotalCarrito(carrito);
+alert(`El total a pagar por tu compra es: ${total}`);
