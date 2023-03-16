@@ -77,11 +77,6 @@ if (seleccion == "si") {
         }
 
         seleccion = prompt("¿Desea seguir comprando?")
-
-        while (seleccion === "no") {
-            alert("¡Gracias por su compra!")
-            break;
-        }
     }
 
     function calcularPrecioTotalCarrito(carrito) {
@@ -89,21 +84,23 @@ if (seleccion == "si") {
         return total
     }
 
+    carrito.forEach((carritoFinal) => {
+        alert(`producto: ${carritoFinal.producto}, unidades: ${carritoFinal.unidades}, 
+        total a pagar por producto: ${carritoFinal.unidades * carritoFinal.precio} `)
+    });
+
+
     const total = calcularPrecioTotalCarrito(carrito);
-alert(`El total a pagar por tu compra es: ${total}`);
+    alert(`El total a pagar por tu compra es: ${total}`);
 
-let email = prompt("Por favor, ingrese su dirección de correo electrónico para recibir un resumen de su compra:")
-let contenidoCorreo = "Aquí tiene un resumen de su compra en la Librería Escolar:\n"
 
-carrito.forEach((item) => {
-    let subtotal = item.unidades * item.precio;
-    contenidoCorreo += `${item.unidades} ${item.producto} - Subtotal: $${subtotal}\n`;
-});
 
-contenidoCorreo += `Total: $${total}`;
+    let email = prompt("Por favor, ingrese su dirección de correo electrónico para recibir un resumen de su compra:")
 
-alert("Enviando correo electrónico...");
-alert(`Correo electrónico enviado a ${email}. ¡Gracias por su compra!`);
+
+    alert("Enviando correo electrónico...");
+    alert(`Correo electrónico enviado a ${email}. ¡Gracias por su compra!`);
+
 
 }
 
