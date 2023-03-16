@@ -31,70 +31,84 @@ if (seleccion == "si") {
     let todosLosProductos = productos.map(
         (producto) => producto.nombre + " " + "$" + producto.precio);
     alert(todosLosProductos.join(" - "))
-} else if (seleccion == "no") {
-    alert("¡Gracias por su visita!")
-}
 
-while (seleccion != "no") {
-    let producto = prompt("Agregar un producto a tu carrito")
-    let precio = 0
+    while (seleccion != "no") {
+        let producto = prompt("Agregar un producto a tu carrito")
+        let precio = 0
 
-    if (producto == "cartuchera" || producto == "lapices de colores" || producto == "pegamento adhesivo" ||
-        producto == "cuaderno" || producto == "repuesto de hojas Nº3" || producto == "mochila" ||
-        producto == "marcadores" || producto == "birome") {
-        switch (producto) {
-            case "cartuchera":
-                precio = 500;
-                break;
-            case "lapices de colores":
-                precio = 1000;
-                break;
-            case "pegamento adhesivo":
-                precio = 250;
-                break;
-            case "cuaderno":
-                precio = 300;
-                break;
-            case "repuesto de hojas nº3":
-                precio = 400;
-                break;
-            case "mochila":
-                precio = 5000;
-                break;
-            case "marcadores":
-                precio = 600;
-                break;
-            case "birome":
-                precio = 100;
-                break;
-            default:
-                break;
+        if (producto == "cartuchera" || producto == "lapices de colores" || producto == "pegamento adhesivo" ||
+            producto == "cuaderno" || producto == "repuesto de hojas Nº3" || producto == "mochila" ||
+            producto == "marcadores" || producto == "birome") {
+            switch (producto) {
+                case "cartuchera":
+                    precio = 500;
+                    break;
+                case "lapices de colores":
+                    precio = 1000;
+                    break;
+                case "pegamento adhesivo":
+                    precio = 250;
+                    break;
+                case "cuaderno":
+                    precio = 300;
+                    break;
+                case "repuesto de hojas nº3":
+                    precio = 400;
+                    break;
+                case "mochila":
+                    precio = 5000;
+                    break;
+                case "marcadores":
+                    precio = 600;
+                    break;
+                case "birome":
+                    precio = 100;
+                    break;
+                default:
+                    break;
+            }
+
+            let unidades = parseInt(prompt("¿Cuantas unidades quiere llevar?"))
+
+            carrito.push({ producto, unidades, precio })
+
+        } else {
+            alert("No tenemos ese producto")
         }
 
-        let unidades = parseInt(prompt("¿Cuantas unidades quiere llevar?"))
+        seleccion = prompt("¿Desea seguir comprando?")
 
-        carrito.push({ producto, unidades, precio })
-
-    } else {
-        alert("No tenemos ese producto")
+        while (seleccion === "no") {
+            alert("¡Gracias por su compra!")
+            break;
+        }
     }
 
-    seleccion = prompt("¿Desea seguir comprando?")
-
-    while (seleccion === "no") {
-        alert("¡Gracias por su compra!")
-        carrito.forEach((carritoFinal) => {
-            alert(`producto: ${carritoFinal.producto}, unidades: ${carritoFinal.unidades}, 
-            total a pagar por producto: ${carritoFinal.unidades * carritoFinal.precio} `)
-        })
-        break;
+    function calcularPrecioTotalCarrito(carrito) {
+        const total = carrito.reduce((acc, el) => acc + el.precio * el.unidades, 0);
+        return total
     }
-}
 
-function calcularPrecioTotalCarrito(carrito) {
-    const total = carrito.reduce((acc, el) => acc + el.precio * el.unidades, 0);
-    return total
-}
-
-const total = calcularPrecioTotalCarrito(carrito);
+    const total = calcularPrecioTotalCarrito(carrito);
 alert(`El total a pagar por tu compra es: ${total}`);
+
+let email = prompt("Por favor, ingrese su dirección de correo electrónico para recibir un resumen de su compra:")
+let contenidoCorreo = "Aquí tiene un resumen de su compra en la Librería Escolar:\n"
+
+carrito.forEach((item) => {
+    let subtotal = item.unidades * item.precio;
+    contenidoCorreo += `${item.unidades} ${item.producto} - Subtotal: $${subtotal}\n`;
+});
+
+contenidoCorreo += `Total: $${total}`;
+
+alert("Enviando correo electrónico...");
+alert(`Correo electrónico enviado a ${email}. ¡Gracias por su compra!`);
+
+}
+
+alert("Gracias por su visita")
+
+
+
+
